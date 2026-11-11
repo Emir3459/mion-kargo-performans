@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="19 Ekim–10 Kasım Mion sipariş performansı" />
+  <title>Mion The Kargo Sipariş Performansı</title>
+  <style>
+    :root {
+      --ink:#14203a; --muted:#64748b; --line:#dbe4ef; --soft:#f4f7fb;
+      --blue:#173f85; --orange:#eb6b0a; --green:#08795f; --red:#c5222a;
+      --shadow:0 14px 40px rgba(24,47,83,.09);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#f3f6fa 0,#f8fafc 55%,#fff 100%);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .page{max-width:1440px;margin:auto;padding:26px 28px 48px}
+    header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:22px}
+    .brand{display:flex;gap:14px;align-items:center}.brand-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:#fff0df;font-size:25px}
+    h1{margin:0;font-size:clamp(24px,3vw,38px);letter-spacing:-.03em}.subtitle{margin:6px 0 0;color:var(--muted);font-size:15px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:white;color:var(--ink);border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(20,32,58,.04)}.btn:hover{border-color:#9fb0c6}.btn.primary{background:var(--ink);color:white;border-color:var(--ink)}
+    .hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+    .card{background:rgba(255,255,255,.93);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.09em;color:var(--muted);text-transform:uppercase}.value{font-size:40px;line-height:1.05;font-weight:850;letter-spacing:-.04em;margin:12px 0 7px}.hint{color:var(--muted);font-size:13px}.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800;margin-top:10px;background:#e2f5ed;color:var(--green)}.chip.warn{background:#fde8e8;color:var(--red)}.chip.neutral{background:#e9eff8;color:var(--blue)}
+    .month-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}.month{position:relative;overflow:hidden}.month:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--blue)}.month.nov:before{background:var(--orange)}
+    .month-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.month-title{font-size:20px;font-weight:850}.month-period{font-size:12px;color:var(--muted);background:var(--soft);padding:6px 9px;border-radius:999px}
+    .month-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.mini{border-left:1px solid var(--line);padding-left:12px}.mini:first-child{border-left:0;padding-left:0}.mini strong{display:block;font-size:24px;letter-spacing:-.03em}.mini span{font-size:12px;color:var(--muted)}
+    .panel{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-top:14px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.panel h2{margin:0;font-size:22px;letter-spacing:-.02em}.legend{display:flex;gap:16px;align-items:center;color:var(--muted);font-size:13px}.legend span{display:flex;align-items:center;gap:7px}.dot{width:10px;height:10px;border-radius:50%;background:var(--blue)}.dash{width:22px;border-top:3px dashed var(--orange)}
+    .filters{display:flex;gap:7px}.filter{border:1px solid var(--line);background:white;border-radius:9px;padding:7px 11px;font-weight:750;color:var(--muted);cursor:pointer}.filter.active{background:var(--ink);color:white;border-color:var(--ink)}
+    .chart-scroll{overflow-x:auto}.chart-wrap{min-width:970px}.chart{width:100%;height:410px;display:block}.chart-context{margin-top:5px;color:var(--muted);font-size:13px;font-weight:650}.gridline{stroke:#e3eaf2;stroke-width:1}.axis-label{font-size:11px;fill:#64748b}.data-label{font-size:10px;font-weight:800;fill:var(--blue)}.closed-label{font-size:10px;font-weight:800;fill:#a33}.closed-band{fill:#fff1f1}.avg-line{stroke:var(--orange);stroke-width:2.3;stroke-dasharray:5 5}.order-line{fill:none;stroke:var(--blue);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.point{fill:var(--blue);stroke:white;stroke-width:2}.split{stroke:#9fb0c6;stroke-width:1.3;stroke-dasharray:3 5}
+    .table-tools{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:var(--muted);font-size:13px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #edf1f6}th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:#f8fafc;position:sticky;top:0}td{font-size:14px}tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#fafcff}.num{font-weight:850;color:var(--blue)}.status{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:800;background:#e2f5ed;color:var(--green)}.status.closed{background:#fde8e8;color:var(--red)}
+    footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+    @media(max-width:980px){.hero-grid{grid-template-columns:1fr 1fr}.month-grid{grid-template-columns:1fr}.actions{display:none}}
+    @media(max-width:600px){.page{padding:18px 14px 36px}.hero-grid{grid-template-columns:1fr 1fr;gap:10px}.card{padding:16px}.value{font-size:32px}.month-stats{grid-template-columns:1fr 1fr}.mini:nth-child(3){border-left:0;padding-left:0}.panel{padding:16px}.panel-head{align-items:flex-start;flex-direction:column}.legend{flex-wrap:wrap}h1{font-size:25px}.subtitle{font-size:13px}}
+    @media print{body{background:#fff}.page{max-width:none;padding:10mm}.actions,.filters{display:none}.card,.panel{box-shadow:none}.chart-scroll{overflow:visible}.chart-wrap{min-width:0}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="brand"><div class="brand-icon">📦</div><div><h1>Mion The Kargo Sipariş Performansı</h1><p class="subtitle">19 Ekim–10 Kasım döneminde günlük sipariş dağılımı ve aylık performans karşılaştırması</p></div></div>
+      <div class="actions"><button class="btn" onclick="window.print()">PDF / Yazdır</button><button class="btn primary" id="csvBtn">CSV İndir</button></div>
+    </header>
+
+    <section class="hero-grid" aria-label="Temel göstergeler">
+      <article class="card"><div class="eyebrow">Toplam sipariş</div><div class="value">421</div><div class="hint">Ekim 212 / Kasım 209</div><div class="chip neutral">19 Ekim–10 Kasım</div></article>
+      <article class="card"><div class="eyebrow">Aktif operasyon günü</div><div class="value">20 gün</div><div class="hint">23 takvim günü</div><div class="chip warn">3 gün depo kapalı</div></article>
+      <article class="card"><div class="eyebrow">Dönem günlük ortalaması</div><div class="value">21,1</div><div class="hint">Aktif günler üzerinden</div><div class="chip">Kasım ortalaması +%48</div></article>
+      <article class="card"><div class="eyebrow">En yüksek günlük hacim</div><div class="value">71</div><div class="hint">19 Ekim</div><div class="chip neutral">Kasım zirvesi 43</div></article>
+    </section>
+
+    <section class="month-grid" aria-label="Aylık karşılaştırma">
+      <article class="card month"><div class="month-head"><div class="month-title">Ekim</div><div class="month-period">19–31 Ekim</div></div><div class="month-stats"><div class="mini"><strong>212</strong><span>Sipariş</span></div><div class="mini"><strong>12</strong><span>Aktif gün</span></div><div class="mini"><strong>17,7</strong><span>Günlük ortalama</span></div><div class="mini"><strong>71</strong><span>En yüksek hacim</span></div></div></article>
+      <article class="card month nov"><div class="month-head"><div class="month-title">Kasım</div><div class="month-period">1–10 Kasım</div></div><div class="month-stats"><div class="mini"><strong>209</strong><span>Sipariş</span></div><div class="mini"><strong>8</strong><span>Aktif gün</span></div><div class="mini"><strong>26,1</strong><span>Günlük ortalama</span></div><div class="mini"><strong>43</strong><span>En yüksek hacim</span></div></div></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><div><h2>Günlük sipariş dağılımı</h2><div class="chart-context" id="chartContext">Tüm dönem · 421 sipariş · 20 aktif gün</div><div class="legend"><span><i class="dot"></i>Sipariş adedi</span><span><i class="dash"></i>Aylık günlük ortalama</span></div></div><div class="filters" role="group" aria-label="Dönem filtresi"><button class="filter active" data-period="all" aria-pressed="true">Tümü</button><button class="filter" data-period="oct" aria-pressed="false">Ekim</button><button class="filter" data-period="nov" aria-pressed="false">Kasım</button></div></div>
+      <div class="chart-scroll"><div class="chart-wrap"><svg class="chart" id="chart" width="1180" height="410" viewBox="0 0 1180 410" role="img" aria-label="19 Ekim–10 Kasım günlük sipariş grafiği"></svg></div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Günlük detay</h2></div>
+      <div class="table-tools"><span>Kapalı günler: 25 Ekim, 1 Kasım ve 8 Kasım</span><span id="rowCount"></span></div>
+      <div class="table-wrap"><table><thead><tr><th>Tarih</th><th>Ay</th><th>Sipariş</th><th>Operasyon durumu</th><th>Aylık ortalamaya göre</th></tr></thead><tbody id="dailyRows"></tbody></table></div>
+    </section>
+    <footer>Kaynak: Paylaşılan Mion günlük sipariş değerleri · Son güncelleme: 11 Kasım 2026</footer>
+  </main>
+
+  <script>
+    const data = [
+      ['19 Ekim','Ekim',71],['20 Ekim','Ekim',12],['21 Ekim','Ekim',8],['22 Ekim','Ekim',5],['23 Ekim','Ekim',14],['24 Ekim','Ekim',24],['25 Ekim','Ekim',null],['26 Ekim','Ekim',50],['27 Ekim','Ekim',3],['28 Ekim','Ekim',3],['29 Ekim','Ekim',3],['30 Ekim','Ekim',9],['31 Ekim','Ekim',10],
+      ['1 Kasım','Kasım',null],['2 Kasım','Kasım',15],['3 Kasım','Kasım',42],['4 Kasım','Kasım',14],['5 Kasım','Kasım',17],['6 Kasım','Kasım',30],['7 Kasım','Kasım',26],['8 Kasım','Kasım',null],['9 Kasım','Kasım',43],['10 Kasım','Kasım',22]
+    ];
+    const averages = {Ekim:17.7, Kasım:26.1};
+    const svg = document.getElementById('chart');
+    const chartContext = document.getElementById('chartContext');
+    const NS='http://www.w3.org/2000/svg';
+    const el=(name,attrs={},text='')=>{const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n};
+    function renderChart(period='all'){
+      const visible=data.filter(d=>period==='all'||(period==='oct'&&d[1]==='Ekim')||(period==='nov'&&d[1]==='Kasım'));
+      const summaries={all:'Tüm dönem · 421 sipariş · 20 aktif gün',oct:'Ekim · 212 sipariş · 12 aktif gün · Ortalama 17,7',nov:'Kasım · 209 sipariş · 8 aktif gün · Ortalama 26,1'};
+      chartContext.textContent=summaries[period];
+      svg.innerHTML=''; const W=1180,H=410,m={l:54,r:24,t:28,b:64},max=80; const cw=W-m.l-m.r,ch=H-m.t-m.b;
+      const x=i=>m.l+(visible.length===1?cw/2:i*cw/(visible.length-1)); const y=v=>m.t+ch-(v/max)*ch;
+      [0,20,40,60,80].forEach(v=>{svg.append(el('line',{x1:m.l,y1:y(v),x2:W-m.r,y2:y(v),class:'gridline'}));svg.append(el('text',{x:m.l-12,y:y(v)+4,'text-anchor':'end',class:'axis-label'},String(v)))});
+      visible.forEach((d,i)=>{if(d[2]===null){svg.append(el('rect',{x:x(i)-18,y:m.t,width:36,height:ch,class:'closed-band'}));svg.append(el('text',{x:x(i),y:m.t+14,'text-anchor':'middle',class:'closed-label'},'KAPALI'))}});
+      if(period==='all'){const split=visible.findIndex(d=>d[1]==='Kasım');const sx=(x(split-1)+x(split))/2;svg.append(el('line',{x1:sx,y1:m.t,x2:sx,y2:m.t+ch,class:'split'}));}
+      const avgSegments=[]; let start=0; for(let i=1;i<=visible.length;i++){if(i===visible.length||visible[i][1]!==visible[start][1]){avgSegments.push([start,i-1,averages[visible[start][1]]]);start=i;}}
+      avgSegments.forEach(([a,b,v])=>svg.append(el('line',{x1:x(a),y1:y(v),x2:x(b),y2:y(v),class:'avg-line'})));
+      let segment=[]; const flush=()=>{if(segment.length>1)svg.append(el('polyline',{points:segment.map(([i,v])=>`${x(i)},${y(v)}`).join(' '),class:'order-line'}));segment=[]};
+      visible.forEach((d,i)=>{if(d[2]===null){flush()}else segment.push([i,d[2]])});flush();
+      visible.forEach((d,i)=>{const short=d[0].replace(' Ekim',' Eki').replace(' Kasım',' Kas');svg.append(el('text',{x:x(i),y:H-25,'text-anchor':'middle',class:'axis-label'},short));if(d[2]!==null){svg.append(el('circle',{cx:x(i),cy:y(d[2]),r:5,class:'point'}));svg.append(el('text',{x:x(i),y:y(d[2])-11,'text-anchor':'middle',class:'data-label'},String(d[2])));}});
+    }
+    function renderTable(period='all'){
+      const rows=data.filter(d=>period==='all'||(period==='oct'&&d[1]==='Ekim')||(period==='nov'&&d[1]==='Kasım'));
+      document.getElementById('dailyRows').innerHTML=rows.map(([date,month,value])=>{const closed=value===null;const delta=closed?'—':`${value>=averages[month]?'+':''}${(value-averages[month]).toFixed(1).replace('.',',')}`;return `<tr><td><strong>${date}</strong></td><td>${month}</td><td class="num">${closed?'—':value}</td><td><span class="status ${closed?'closed':''}">${closed?'Depo kapalı':'Aktif'}</span></td><td>${delta}</td></tr>`}).join('');
+      document.getElementById('rowCount').textContent=`${rows.length} takvim günü`;
+    }
+    document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false')});btn.classList.add('active');btn.setAttribute('aria-pressed','true');renderChart(btn.dataset.period);renderTable(btn.dataset.period)}));
+    document.getElementById('csvBtn').addEventListener('click',()=>{const lines=[['Tarih','Ay','Sipariş','Durum'],...data.map(d=>[d[0],d[1],d[2]??'',d[2]===null?'Depo kapalı':'Aktif'])];const csv='\ufeff'+lines.map(r=>r.join(';')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='mion-the-kargo-siparisleri.csv';a.click();URL.revokeObjectURL(a.href)});
+    renderChart(); renderTable();
+  </script>
+</body>
+</html>
