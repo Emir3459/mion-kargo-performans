@@ -5,9 +5,9 @@
   "source": "shared_daily_values",
   "source_state": "historical",
   "updated_at": null,
-  "snapshot_date": "2026-11-11",
+  "snapshot_date": "2026-11-12",
   "period_start": "2026-10-19",
-  "period_end": "2026-11-10",
+  "period_end": "2026-11-11",
   "days": [
     {
       "date": "2026-10-19",
@@ -122,6 +122,11 @@
     {
       "date": "2026-11-10",
       "orders": 22,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-11",
+      "orders": 20,
       "status": "active"
     }
   ]
