@@ -26,7 +26,7 @@
       if (Date.parse(days[i].date) - Date.parse(days[i-1].date) !== 86400000) throw new Error('Eksik veya tekrarlanan gün var.');
     }
     const today = new Intl.DateTimeFormat('sv-SE', {timeZone:'Europe/Istanbul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-    if (payload.period_end >= today) throw new Error('Tamamlanmamış gün sonuçlara eklenemez.');
+    if (payload.period_end > today) throw new Error('Gelecek tarih sonuçlara eklenemez.');
     return {...payload, days};
   }
   function summarize(days) {
