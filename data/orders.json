@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "scope": "mion_the_kargo",
+  "timezone": "Europe/Istanbul",
+  "source": "shared_daily_values",
+  "source_state": "historical",
+  "updated_at": null,
+  "snapshot_date": "2026-11-11",
+  "period_start": "2026-10-19",
+  "period_end": "2026-11-10",
+  "days": [
+    {
+      "date": "2026-10-19",
+      "orders": 71,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-20",
+      "orders": 12,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-21",
+      "orders": 8,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-22",
+      "orders": 5,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-23",
+      "orders": 14,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-24",
+      "orders": 24,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-25",
+      "orders": null,
+      "status": "closed"
+    },
+    {
+      "date": "2026-10-26",
+      "orders": 50,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-27",
+      "orders": 3,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-28",
+      "orders": 3,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-29",
+      "orders": 3,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-30",
+      "orders": 9,
+      "status": "active"
+    },
+    {
+      "date": "2026-10-31",
+      "orders": 10,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-01",
+      "orders": null,
+      "status": "closed"
+    },
+    {
+      "date": "2026-11-02",
+      "orders": 15,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-03",
+      "orders": 42,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-04",
+      "orders": 14,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-05",
+      "orders": 17,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-06",
+      "orders": 30,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-07",
+      "orders": 26,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-08",
+      "orders": null,
+      "status": "closed"
+    },
+    {
+      "date": "2026-11-09",
+      "orders": 43,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-10",
+      "orders": 22,
+      "status": "active"
+    }
+  ]
+}
