@@ -53,7 +53,6 @@ def fetch_total(day):
     payload = {
         "clientIds": [68],
         "companyIds": [820],
-        "storeIds": [10000000000000],
         "statuses": ["CREATED"],
         "startDate": iso_z(start_local),
         "endDate": iso_z(end_local),
@@ -106,8 +105,18 @@ def update_file(day, total):
 
 
 def main():
+    totals = {}
     for day in target_dates():
-        total = fetch_total(day)
+        totals[day] = fetch_total(day)
+        print(f"Fetched {day.isoformat()} with {totals[day]} MION shipments")
+
+    reference_day = datetime.strptime("2026-11-12", "%Y-%m-%d").date()
+    if reference_day in totals and totals[reference_day] != 55:
+        raise RuntimeError(
+            f"Reference validation failed for 2026-11-12: expected 55, received {totals[reference_day]}"
+        )
+
+    for day, total in totals.items():
         update_file(day, total)
         print(f"Updated {day.isoformat()} with {total} MION shipments")
 
