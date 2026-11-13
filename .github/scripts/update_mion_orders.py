@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import json
 import os
+import socket
+import subprocess
+import urllib.error
 import urllib.request
 from datetime import datetime, time, timedelta, timezone
 from pathlib import Path
@@ -8,6 +11,7 @@ from zoneinfo import ZoneInfo
 
 ISTANBUL = ZoneInfo("Europe/Istanbul")
 API_URL = "https://koala.ms.pt360.app/api/shipments/query?page=0&size=20"
+INGRESS_DISCOVERY_HOST = "cockpit.migpack.app"
 DATA_PATH = Path("data/orders.json")
 
 
@@ -29,6 +33,29 @@ def target_dates():
     return [datetime.now(ISTANBUL).date() - timedelta(days=1)]
 
 
+def fetch_via_ingress(payload):
+    ingress_ip = socket.gethostbyname(INGRESS_DISCOVERY_HOST)
+    command = [
+        "curl",
+        "--silent",
+        "--show-error",
+        "--fail-with-body",
+        "--max-time",
+        "45",
+        "--resolve",
+        f"koala.ms.pt360.app:443:{ingress_ip}",
+        "--header",
+        "Content-Type: application/json",
+        "--header",
+        "Accept: application/json",
+        "--data",
+        json.dumps(payload),
+        API_URL,
+    ]
+    result = subprocess.run(command, capture_output=True, text=True, check=True, timeout=50)
+    return json.loads(result.stdout)
+
+
 def fetch_total(day):
     start_local = datetime.combine(day, time.min, ISTANBUL)
     end_local = start_local + timedelta(days=1) - timedelta(milliseconds=1)
@@ -47,8 +74,14 @@ def fetch_total(day):
         headers={"Content-Type": "application/json", "Accept": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=45) as response:
-        body = json.load(response)
+    try:
+        with urllib.request.urlopen(request, timeout=45) as response:
+            body = json.load(response)
+    except urllib.error.URLError as error:
+        if not isinstance(error.reason, socket.gaierror):
+            raise
+        print("Koala DNS lookup failed; retrying through the discovered internal ingress")
+        body = fetch_via_ingress(payload)
 
     data = body.get("data") or {}
     page = data.get("page") or {}
