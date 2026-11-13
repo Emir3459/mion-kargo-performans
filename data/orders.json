@@ -2,12 +2,12 @@
   "schema_version": 1,
   "scope": "mion_the_kargo",
   "timezone": "Europe/Istanbul",
-  "source": "migpack",
-  "source_state": "connected",
-  "updated_at": "2026-11-13T14:34:16+03:00",
-  "snapshot_date": "2026-11-13",
+  "source": "shared_daily_values",
+  "source_state": "historical",
+  "updated_at": null,
+  "snapshot_date": "2026-11-12",
   "period_start": "2026-10-19",
-  "period_end": "2026-11-13",
+  "period_end": "2026-11-12",
   "days": [
     {
       "date": "2026-10-19",
@@ -131,13 +131,8 @@
     },
     {
       "date": "2026-11-12",
-      "orders": 0,
-      "status": "no_orders"
-    },
-    {
-      "date": "2026-11-13",
-      "orders": 0,
-      "status": "no_orders"
+      "orders": 55,
+      "status": "active"
     }
   ]
 }
