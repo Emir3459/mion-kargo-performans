@@ -15,11 +15,18 @@ def iso_z(value: datetime) -> str:
     return value.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 
-def target_date():
+def target_dates():
+    requested_many = os.environ.get("TARGET_DATES", "").strip()
+    if requested_many:
+        return [
+            datetime.strptime(value.strip(), "%Y-%m-%d").date()
+            for value in requested_many.split(",")
+            if value.strip()
+        ]
     requested = os.environ.get("TARGET_DATE", "").strip()
     if requested:
-        return datetime.strptime(requested, "%Y-%m-%d").date()
-    return datetime.now(ISTANBUL).date() - timedelta(days=1)
+        return [datetime.strptime(requested, "%Y-%m-%d").date()]
+    return [datetime.now(ISTANBUL).date() - timedelta(days=1)]
 
 
 def fetch_total(day):
@@ -83,10 +90,10 @@ def update_file(day, total):
 
 
 def main():
-    day = target_date()
-    total = fetch_total(day)
-    update_file(day, total)
-    print(f"Updated {day.isoformat()} with {total} MION shipments")
+    for day in target_dates():
+        total = fetch_total(day)
+        update_file(day, total)
+        print(f"Updated {day.isoformat()} with {total} MION shipments")
 
 
 if __name__ == "__main__":
