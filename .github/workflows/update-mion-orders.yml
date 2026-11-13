@@ -1,19 +1,12 @@
 name: Update Mion order data
 
 on:
-  schedule:
-    # 09:30 Europe/Istanbul (UTC+3)
-    - cron: "30 6 * * *"
   workflow_dispatch:
     inputs:
       date:
         description: "Optional date to refresh (YYYY-MM-DD)"
         required: false
         type: string
-  push:
-    paths:
-      - ".github/workflows/update-mion-orders.yml"
-      - ".github/scripts/update_mion_orders.py"
 
 permissions:
   contents: write
