@@ -53,7 +53,7 @@ def fetch_total(day):
     payload = {
         "clientIds": [68],
         "companyIds": [820],
-        "statuses": ["CREATED"],
+        "statuses": [],
         "startDate": iso_z(start_local),
         "endDate": iso_z(end_local),
     }
