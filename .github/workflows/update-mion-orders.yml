@@ -1,6 +1,9 @@
 name: Update Mion order data
 
 on:
+  schedule:
+    # 09:30 Europe/Istanbul (UTC+3)
+    - cron: "30 6 * * *"
   workflow_dispatch:
     inputs:
       date:
