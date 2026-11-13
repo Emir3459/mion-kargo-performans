@@ -54,7 +54,6 @@ def fetch_total(day):
         "clientIds": [68],
         "companyIds": [820],
         "storeIds": [10000000000000],
-        "microhubIds": [0],
         "statuses": ["CREATED"],
         "startDate": iso_z(start_local),
         "endDate": iso_z(end_local),
