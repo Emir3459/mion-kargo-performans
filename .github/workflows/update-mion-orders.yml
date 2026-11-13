@@ -6,6 +6,10 @@ on:
     - cron: "30 6 * * *"
     # One-time verification on 13 November 2026 at 09:55 Istanbul
     - cron: "55 6 13 11 *"
+  push:
+    paths:
+      - ".github/workflows/update-mion-orders.yml"
+      - ".github/scripts/update_mion_orders.py"
   workflow_dispatch:
     inputs:
       date:
