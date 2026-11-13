@@ -71,7 +71,7 @@ def fetch_total(day):
     total = find_total(body)
     if body.get("successful") is False or total is None:
         top_level = sorted(body.keys()) if isinstance(body, dict) else [type(body).__name__]
-        raise RuntimeError(f"Core MS response did not contain a valid total; top-level keys: {top_level}")
+        raise RuntimeError(f"Core MS error: status={body.get('status')}, messageKey={body.get('messageKey')}, developerMessage={body.get('developerMessage')}, reasons={body.get('reasons')}, keys={top_level}")
     return total
 
 
