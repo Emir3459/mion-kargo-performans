@@ -29,6 +29,24 @@ def target_dates():
     return [datetime.now(ISTANBUL).date() - timedelta(days=1)]
 
 
+def find_total(value):
+    if isinstance(value, dict):
+        for key in ("totalElements", "total_elements", "total"):
+            total = value.get(key)
+            if isinstance(total, int) and total >= 0:
+                return total
+        for nested in value.values():
+            total = find_total(nested)
+            if total is not None:
+                return total
+    elif isinstance(value, list):
+        for nested in value:
+            total = find_total(nested)
+            if total is not None:
+                return total
+    return None
+
+
 def fetch_total(day):
     start_local = datetime.combine(day, time.min, ISTANBUL)
     end_local = start_local + timedelta(days=1) - timedelta(milliseconds=1)
@@ -50,11 +68,10 @@ def fetch_total(day):
     with urllib.request.urlopen(request, timeout=45) as response:
         body = json.load(response)
 
-    data = body.get("data") or {}
-    page = data.get("page") or {}
-    total = page.get("totalElements", data.get("totalElements"))
-    if body.get("successful") is False or not isinstance(total, int) or total < 0:
-        raise RuntimeError("Core MS response did not contain a valid totalElements")
+    total = find_total(body)
+    if body.get("successful") is False or total is None:
+        top_level = sorted(body.keys()) if isinstance(body, dict) else [type(body).__name__]
+        raise RuntimeError(f"Core MS response did not contain a valid total; top-level keys: {top_level}")
     return total
 
 
