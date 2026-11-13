@@ -4,6 +4,9 @@ on:
   schedule:
     # 09:30 Europe/Istanbul (UTC+3)
     - cron: "30 6 * * *"
+  push:
+    paths:
+      - ".github/workflows/update-mion-orders.yml"
   workflow_dispatch:
     inputs:
       date:
@@ -24,11 +27,12 @@ jobs:
     timeout-minutes: 10
     env:
       TARGET_DATE: ${{ inputs.date }}
+      TARGET_DATES: ${{ github.event_name == 'push' && '2026-11-12,2026-11-13' || '' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Fetch previous-day Mion total
+      - name: Fetch Mion totals
         run: python3 .github/scripts/update_mion_orders.py
 
       - name: Commit updated data
