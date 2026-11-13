@@ -7,6 +7,7 @@ on:
   push:
     paths:
       - ".github/workflows/update-mion-orders.yml"
+      - ".github/scripts/update_mion_orders.py"
   workflow_dispatch:
     inputs:
       date:
