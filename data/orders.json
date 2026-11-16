@@ -146,8 +146,8 @@
     },
     {
       "date": "2026-11-15",
-      "orders": 0,
-      "status": "no_orders"
+      "orders": null,
+      "status": "closed"
     },
     {
       "date": "2026-11-16",
