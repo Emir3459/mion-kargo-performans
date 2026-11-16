@@ -79,9 +79,12 @@ def update_file(day, total):
     days = payload["days"]
     existing = next((item for item in days if item["date"] == date_text), None)
 
+    depot_closed = day.weekday() == 6 and total == 0
+
     if existing:
-        if existing.get("status") == "closed" and total == 0:
+        if depot_closed or (existing.get("status") == "closed" and total == 0):
             existing["orders"] = None
+            existing["status"] = "closed"
         else:
             existing["orders"] = total
             existing["status"] = "active" if total > 0 else "no_orders"
@@ -91,8 +94,8 @@ def update_file(day, total):
             raise RuntimeError(f"Expected {last + timedelta(days=1)}, received {day}")
         days.append({
             "date": date_text,
-            "orders": total,
-            "status": "active" if total > 0 else "no_orders",
+            "orders": None if depot_closed else total,
+            "status": "closed" if depot_closed else ("active" if total > 0 else "no_orders"),
         })
 
     days.sort(key=lambda item: item["date"])
