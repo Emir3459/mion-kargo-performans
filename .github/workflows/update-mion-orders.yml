@@ -10,6 +10,9 @@ on:
         description: "Optional date to refresh (YYYY-MM-DD)"
         required: false
         type: string
+  push:
+    paths:
+      - ".github/workflows/update-mion-orders.yml"
 
 permissions:
   contents: write
@@ -24,6 +27,7 @@ jobs:
     timeout-minutes: 10
     env:
       TARGET_DATE: ${{ inputs.date }}
+      TARGET_DATES: ${{ github.event_name == 'push' && '2026-11-11' || '' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
