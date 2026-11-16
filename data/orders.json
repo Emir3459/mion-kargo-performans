@@ -4,7 +4,7 @@
   "timezone": "Europe/Istanbul",
   "source": "migpack",
   "source_state": "connected",
-  "updated_at": "2026-11-16T10:22:10+03:00",
+  "updated_at": "2026-11-16T10:24:50+03:00",
   "snapshot_date": "2026-11-16",
   "period_start": "2026-10-19",
   "period_end": "2026-11-16",
@@ -86,7 +86,7 @@
     },
     {
       "date": "2026-11-03",
-      "orders": 42,
+      "orders": 43,
       "status": "active"
     },
     {
@@ -101,12 +101,12 @@
     },
     {
       "date": "2026-11-06",
-      "orders": 30,
+      "orders": 32,
       "status": "active"
     },
     {
       "date": "2026-11-07",
-      "orders": 26,
+      "orders": 27,
       "status": "active"
     },
     {
@@ -116,7 +116,7 @@
     },
     {
       "date": "2026-11-09",
-      "orders": 43,
+      "orders": 45,
       "status": "active"
     },
     {
@@ -136,7 +136,7 @@
     },
     {
       "date": "2026-11-13",
-      "orders": 31,
+      "orders": 32,
       "status": "active"
     },
     {
@@ -151,8 +151,8 @@
     },
     {
       "date": "2026-11-16",
-      "orders": 0,
-      "status": "no_orders"
+      "orders": 28,
+      "status": "active"
     }
   ]
 }
