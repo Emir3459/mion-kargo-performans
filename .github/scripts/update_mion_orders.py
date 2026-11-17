@@ -26,7 +26,7 @@ def target_dates():
     requested = os.environ.get("TARGET_DATE", "").strip()
     if requested:
         return [datetime.strptime(requested, "%Y-%m-%d").date()]
-    return [datetime.now(ISTANBUL).date() - timedelta(days=1)]
+    return [datetime.now(ISTANBUL).date()]
 
 
 def find_total(value):
