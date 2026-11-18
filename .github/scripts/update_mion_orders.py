@@ -26,7 +26,14 @@ def target_dates():
     requested = os.environ.get("TARGET_DATE", "").strip()
     if requested:
         return [datetime.strptime(requested, "%Y-%m-%d").date()]
-    return [datetime.now(ISTANBUL).date()]
+    today = datetime.now(ISTANBUL).date()
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    last = datetime.fromisoformat(data["period_end"]).date()
+    first = max(
+        datetime.fromisoformat(data["period_start"]).date(),
+        min(today - timedelta(days=1), last + timedelta(days=1)),
+    )
+    return [first + timedelta(days=offset) for offset in range((today - first).days + 1)]
 
 
 def find_total(value):
@@ -78,6 +85,7 @@ def update_file(day, total):
     date_text = day.isoformat()
     days = payload["days"]
     existing = next((item for item in days if item["date"] == date_text), None)
+    previous = existing.copy() if existing is not None else None
 
     depot_closed = day.weekday() == 6 and total == 0
 
@@ -98,6 +106,9 @@ def update_file(day, total):
             "status": "closed" if depot_closed else ("active" if total > 0 else "no_orders"),
         })
 
+    if previous is not None and existing == previous:
+        return False
+
     days.sort(key=lambda item: item["date"])
     payload["source"] = "migpack"
     payload["source_state"] = "connected"
@@ -105,6 +116,7 @@ def update_file(day, total):
     payload["snapshot_date"] = datetime.now(ISTANBUL).date().isoformat()
     payload["period_end"] = days[-1]["date"]
     DATA_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return True
 
 
 def main():
@@ -114,8 +126,8 @@ def main():
         print(f"Fetched {day.isoformat()} with {totals[day]} MION shipments")
 
     for day, total in totals.items():
-        update_file(day, total)
-        print(f"Updated {day.isoformat()} with {total} MION shipments")
+        if update_file(day, total):
+            print(f"Updated {day.isoformat()} with {total} MION shipments")
 
 
 if __name__ == "__main__":
