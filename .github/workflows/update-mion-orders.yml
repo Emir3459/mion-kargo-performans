@@ -10,10 +10,6 @@ on:
         description: "Optional date to refresh (YYYY-MM-DD)"
         required: false
         type: string
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/update-mion-orders.yml"
 
 permissions:
   contents: write
