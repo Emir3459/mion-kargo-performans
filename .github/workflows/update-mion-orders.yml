@@ -2,8 +2,8 @@ name: Update Mion order data
 
 on:
   schedule:
-    # Every hour on the hour; cron uses UTC.
-    - cron: "0 * * * *"
+    # Every 15 minutes; offset avoids the top-of-hour scheduling peak.
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
     inputs:
       date:
