@@ -4,10 +4,10 @@
   "timezone": "Europe/Istanbul",
   "source": "migpack",
   "source_state": "connected",
-  "updated_at": "2026-11-25T08:48:43+03:00",
-  "snapshot_date": "2026-11-25",
+  "updated_at": "2026-11-26T09:41:11+03:00",
+  "snapshot_date": "2026-11-26",
   "period_start": "2026-10-19",
-  "period_end": "2026-11-25",
+  "period_end": "2026-11-26",
   "days": [
     {
       "date": "2026-10-19",
@@ -196,8 +196,13 @@
     },
     {
       "date": "2026-11-25",
-      "orders": 0,
-      "status": "no_orders"
+      "orders": 15,
+      "status": "active"
+    },
+    {
+      "date": "2026-11-26",
+      "orders": 20,
+      "status": "active"
     }
   ]
 }
